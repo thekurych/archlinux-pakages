@@ -61,7 +61,7 @@ package(){
   #man
   install -Dm644 $srcdir/i2pd/debian/i2pd.1 "$pkgdir/${_share_dest}/man/man1/i2pd.1"
 
-  chmod -R o= $pkgdir/${_home_dir}
+  chmod -R o= $pkgdir/${_home_dest}
 }
 
 pkgver() {
