@@ -19,7 +19,7 @@ conflicts=('i2pd')
 
 build() {
   cd $srcdir/i2pd
-  CXXFLAGS="-Wall -O2 -fstack-protector-strong -DUSE_UPNP" make
+  CXXFLAGS="-Wall -O2 -fstack-protector-strong" USE_UPNP=1 make
 }
 
 package(){
