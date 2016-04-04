@@ -8,7 +8,7 @@ pkgdesc="Simplified C++ implementation of I2P client"
 arch=('i686' 'x86_64')
 url="https://github.com/PurpleI2P/i2pd"
 license=('BSD')
-depends=('boost-libs' 'openssl' 'zlib')
+depends=('boost-libs' 'miniupnpc' 'openssl' 'zlib')
 makedepends=('git' 'boost')
 source=('i2pd::git+https://github.com/PurpleI2P/i2pd.git#branch=master'
         i2pd.service
