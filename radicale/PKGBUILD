@@ -13,13 +13,13 @@ makedepends=('python-setuptools')
 backup=('etc/radicale/config')
 install='radicale.install'
 source=(
-	"http://pypi.python.org/packages/source/R/Radicale/Radicale-${pkgver}.tar.gz"
+	Radicale-${pkgver}.tar.gz::"https://github.com/Kozea/Radicale/archive/${pkgver}.tar.gz"
 	"radicale-${pkgver}.patch"
 	'radicale.service'
 	'radicale.install'
 )
 optdepends=(
-	'python-passlib: bcrypt support for htpasswd access'
+	'python-passlib: md5 and bcrypt support for htpasswd access'
 	'python-requests: HTTP authentication support'
 	'python-dulwich: Git support'
 #	'python-pam: PAM authentication support'
@@ -45,7 +45,7 @@ package() {
   install -m644 -D 'radicale.service' "${pkgdir}/usr/lib/systemd/system/radicale.service"
 }
 
-sha256sums=('e2c9812913c464ab88ae1f66b29e81f87a4cc6ee1c94d167b33508c530dab4b0'
+sha256sums=('f978e6bdfab329a8d2d643584f02c4d2788a44b360ed4c326dea9e2735df81f6'
             'e9089df51c5b77741cb153cd66eb4d78ca25ff4c2bd20d638675846aa0574df3'
             '8de8b5198f7d07d463c351fbe89aed4d0b392f97c52cf8feb04218f90918f7ac'
             '5d31c4eb292019eb5cfb9d11e256d15a330e968d3c9bc9a077f9c1fa4ecf0089')

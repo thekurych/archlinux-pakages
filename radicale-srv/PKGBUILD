@@ -16,7 +16,7 @@ conflicts=('radicale')
 install='radicale.install'
 source=(
 	Radicale-${pkgver}.tar.gz::"https://github.com/Kozea/Radicale/archive/${pkgver}.tar.gz"
-	"radicale-${pkgver}.patch"
+	"${pkgname}-${pkgver}.patch"
 	'radicale.service'
 	'radicale.install'
 	'radicale.nginx-example.conf'
@@ -24,7 +24,7 @@ source=(
 	'radicale.rights'
 )
 optdepends=(
-	'python-passlib: bcrypt support for htpasswd access'
+	'python-passlib: md5 and bcrypt support for htpasswd access'
 	'python-requests: HTTP authentication support'
 	'python-dulwich: Git support'
 #	'python-pam: PAM authentication support'
@@ -34,7 +34,7 @@ optdepends=(
 prepare() {
   cd "${_source_name}-${pkgver}"
 
-  patch -p1 < "${srcdir}/${_pkgname}-${pkgver}.patch"
+  patch -p1 < "${srcdir}/${pkgname}-${pkgver}.patch"
 }
 
 package() {
