@@ -1,0 +1,30 @@
+USER=radicale
+HOME=/srv/radicale
+
+post_install() {
+    getent passwd ${USER} &>/dev/null || {
+        echo -n ">>> Creating ${USER} user... "
+        useradd --system \
+			    --user-group \
+				--create-home \
+				--shell /bin/false \
+				--home ${HOME} \
+				--groups http \
+				${USER}
+        echo "done"
+    }
+    post_upgrade
+}
+
+post_upgrade() {
+    chown -R ${USER}:${USER} ${HOME}
+    chmod -R o-rwx ${HOME}
+}
+
+pre_remove() {
+    getent passwd ${USER} &>/dev/null && {
+        echo -n ">>> Removing ${USER} user... "
+        userdel -r ${USER}
+        echo "done"
+    }
+}

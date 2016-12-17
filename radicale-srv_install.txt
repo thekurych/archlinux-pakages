@@ -1,24 +1,26 @@
 Установка radicale в связке с uwsgi+nginx и CalDAV/CardDAV веб-клиентом InfCloud 
 
-1. Инсталлируем пакет Radicale из AUR ( или radicale из этого репозитория  )
+1. Инсталлируем пакет radicale-srv
 
-2. Добавляем radicale в группу http
-	sudo gpasswd -a radicale http
+###2. Сделано при инсталляции пакета
+#    Добавляем radicale в группу http
+#	sudo gpasswd -a radicale http
 
-3. Редактируем /etc/radicale/config
-
-[auth]
-type = htpasswd 
-htpasswd_filename = /etc/radicale/users
-htpasswd_encryption = crypt
-
-[rights]
-type = from_file
-file = /etc/radicale/rights
-
-[storage]
-type = filesystem
-filesystem_folder = /var/lib/radicale/collections
+###3. Сделано во время сборки пакета
+#Редактируем /etc/radicale/config
+#
+#[auth]
+#type = htpasswd 
+#htpasswd_filename = /etc/radicale/users
+#htpasswd_encryption = crypt
+#
+#[rights]
+#type = from_file
+#file = /etc/radicale/rights
+#
+#[storage]
+#type = filesystem
+#filesystem_folder = /srv/radicale/collections
 
 4. Если в дальнейшем будет прикручен клиент InfoCloud в кроссдоменной
    (cross-domain) конфигурации по отношению к radicale, то в /etc/radicale/config
@@ -42,22 +44,23 @@ printf "YOURUSERNAME:`openssl passwd -1`\n" >> /etc/radicale/users
 sudo chmod 640 /etc/radicale/users
 sudo chgrp radicale /etc/radicale/users
 
-6. Создаем файл с разрешениями (такие настройки нужны для работы InfoCloud)
-
-# cat /etc/radicale/rights 
-# Allow caldavzap, carddavmate and infcloud to work
-[infcloud]
-user: .*
-collection: /
-permission: r
-
-# Give write access to owners
-[owner-write]
-user: .+
-# collection: ^%(login)s/.+$    # DOES NOT WORK
-collection: ^%(login)s(/.+)?$
-permission: rw
-
+###6. Входит в пакет, устанавливается при инсталляции
+#Создаем файл с разрешениями (такие настройки нужны для работы InfoCloud)
+#
+## cat /etc/radicale/rights 
+## Allow caldavzap, carddavmate and infcloud to work
+#[infcloud]
+#user: .*
+#collection: /
+#permission: r
+#
+## Give write access to owners
+#[owner-write]
+#user: .+
+## collection: ^%(login)s/.+$    # DOES NOT WORK
+#collection: ^%(login)s(/.+)?$
+#permission: rw
+#
 
 7. Создаем файл конфигурации для uwsgi:
 
@@ -78,8 +81,11 @@ harakiri = 30
 uid = radicale
 gid = radicale
 
+Или копируем
+sudo cp /usr/share/radicale/radicale.uwsgi-example.ini /etc/uwsgi/radicale.ini
 
-8. Конфигурируем nginx
+
+8. Конфигурируем nginx  (Пример конфигурации в /usr/share/radicale/radicale.nginx-example.conf)
 
     server {
         server_name you-radicale.pp.ru;
