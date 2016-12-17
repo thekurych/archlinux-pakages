@@ -18,7 +18,7 @@ post_upgrade() {
 pre_remove() {
     getent passwd ${USER} &>/dev/null && {
         echo -n ">>> Removing ${USER} user... "
-        userdel -r ${USER}
+        userdel ${USER}
         echo "done"
     }
 }
