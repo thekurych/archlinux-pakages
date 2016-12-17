@@ -4,7 +4,7 @@ pkgname=radicale-srv
 _pkgname=radicale
 _source_name=Radicale
 pkgver=1.1.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Simple calendar (CalDAV) and contact (CardDAV) server'
 arch=('any')
 url='http://www.radicale.org/'
@@ -56,7 +56,7 @@ package() {
 sha256sums=('f978e6bdfab329a8d2d643584f02c4d2788a44b360ed4c326dea9e2735df81f6'
             '9231c44c28baed0b2a74d9403b0091cf24987df687e9de35041387ec12d15b8d'
             '8de8b5198f7d07d463c351fbe89aed4d0b392f97c52cf8feb04218f90918f7ac'
-            '8c7913922ca72c757c849be0e609e2dc2aebd07cba116a8b8be67b91adffb00f'
+            'eceab1d2566d7d83926f527c9e965c4f5ab1cfb16ff68bcb698c45967162c579'
             '3852891d79afa238f60da9d686f4aaf3a52fe4c05d3e27c635e90504b88e294a'
             '93ea91cac7386bbdde97fdad46bed068fa43bca4a60dcc2af3c2f04cd937980a'
             '4f25fe806f27ca4e3b12a2f7d7c3e867b2ea6683285e0f4a289e3a1548d85ebf')
