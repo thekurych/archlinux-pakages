@@ -3,8 +3,8 @@ Description=I2P Router in C++
 After=network.target
 
 [Service]
-User=i2p
-Group=i2p
+User=i2pd
+Group=i2pd
 Type=forking
 ExecStart=/usr/bin/i2pd --conf=/var/lib/i2pd/i2pd.conf --pidfile=/run/i2pd/i2pd.pid --service --daemon
 ExecReload=/usr/bin/kill -HUP $MAINPID
