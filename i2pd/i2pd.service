@@ -17,7 +17,7 @@ PIDFile=/run/i2pd/i2pd.pid
 KillSignal=SIGINT
 TimeoutStopSec=10m
 
-LimitNOFILE=8192
+LimitNOFILE=4096
 PrivateDevices=yes
 
 [Install]
