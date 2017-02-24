@@ -2,7 +2,7 @@
 
 pkgname=i2pd-git
 _pkgname=i2pd
-pkgver=2.11.0.r14.gfc08d15
+pkgver=2.12.0.r27.g145e3692
 pkgrel=1
 pkgdesc="Simplified C++ implementation of I2P client"
 arch=('i686' 'x86_64')
@@ -10,15 +10,21 @@ url="https://github.com/PurpleI2P/i2pd"
 license=('BSD')
 depends=('boost-libs' 'miniupnpc' 'openssl' 'zlib')
 makedepends=('git' 'boost')
-source=('i2pd::git+https://github.com/PurpleI2P/i2pd.git#branch=master'
+source=('i2pd::git+https://github.com/PurpleI2P/i2pd.git#branch=openssl'
         i2pd.service
-        i2pd.tmpfiles.conf)
+        i2pd.tmpfiles.conf
+		SharedNewLD.patch)
 install=i2pd.install
 backup=(etc/i2pd/i2pd.conf etc/i2pd/tunnels.conf)
 conflicts=('i2pd')
 
+prepare() {
+  cd ${srcdir}/${_pkgname}
+  patch -Np1 < "../SharedNewLD.patch"
+}
+
 build() {
-  cd $srcdir/i2pd
+  cd ${srcdir}/${_pkgname}
   USE_UPNP=1 make
 }
 
@@ -33,9 +39,9 @@ package(){
   install -Dm0644 $srcdir/i2pd.service $pkgdir/usr/lib/systemd/system/i2pd.service
   install -Dm0644 $srcdir/i2pd.tmpfiles.conf $pkgdir/usr/lib/tmpfiles.d/i2pd.conf
 
-  install -Dm0644 $srcdir/i2pd/docs/i2pd.conf $pkgdir/${_conf_dest}/i2pd.conf
-  install -Dm0644 $srcdir/i2pd/docs/tunnels.conf $pkgdir/${_conf_dest}/tunnels.conf
-  install -Dm0644 $srcdir/i2pd/docs/subscriptions.txt $pkgdir/${_conf_dest}/subscriptions.txt
+  install -Dm0644 $srcdir/i2pd/contrib/i2pd.conf $pkgdir/${_conf_dest}/i2pd.conf
+  install -Dm0644 $srcdir/i2pd/contrib/tunnels.conf $pkgdir/${_conf_dest}/tunnels.conf
+  install -Dm0644 $srcdir/i2pd/contrib/subscriptions.txt $pkgdir/${_conf_dest}/subscriptions.txt
 
   install -d -m0750 $pkgdir/${_home_dest}
   ln -s /${_conf_dest}/i2pd.conf $pkgdir/${_home_dest}/i2pd.conf
@@ -54,9 +60,7 @@ package(){
   # docs
   _dest="$pkgdir/${_share_dest}/doc/${_pkgname}"
   install -Dm644 $srcdir/i2pd/README.md "${_dest}/README.md"
-  install -Dm644 $srcdir/i2pd/docs/configuration.md "${_dest}/configuration.md"
-  install -Dm644 $srcdir/i2pd/docs/family.md "${_dest}/family.md"
-  install -Dm644 $srcdir/i2pd/docs/config_opts_after_2.3.0.md "${_dest}/config_opts_after_2.3.0.md"
+  install -Dm644 $srcdir/i2pd/docs/README.md "${_dest}/Docs_location.md"
 
   #man
   install -Dm644 $srcdir/i2pd/debian/i2pd.1 "$pkgdir/${_share_dest}/man/man1/i2pd.1"
@@ -71,5 +75,6 @@ pkgver() {
 
 md5sums=('SKIP'
          '6f93e415752a31782a1f9fba7157c790'
-         '3a2525a728d944f0d2aeb978ec12ee13')
+         '3a2525a728d944f0d2aeb978ec12ee13'
+		 'f83b6326412d63489bc833be0dc9273c')
 

@@ -1,0 +1,13 @@
+diff --git a/ClientContext.h b/ClientContext.h
+index 1aa1e7f0..20e037b5 100644
+--- a/ClientContext.h
++++ b/ClientContext.h
+@@ -60,7 +60,7 @@ namespace client
+ 			void ReloadConfig ();
+ 
+ 			std::shared_ptr<ClientDestination> GetSharedLocalDestination () const { return m_SharedLocalDestination; };
+-			std::shared_ptr<ClientDestination> CreateNewLocalDestination (bool isPublic = false, i2p::data::SigningKeyType sigType = i2p::data::SIGNING_KEY_TYPE_DSA_SHA1,
++			std::shared_ptr<ClientDestination> CreateNewLocalDestination (bool isPublic = false, i2p::data::SigningKeyType sigType = i2p::data::SIGNING_KEY_TYPE_EDDSA_SHA512_ED25519,
+ 			    const std::map<std::string, std::string> * params = nullptr); // transient
+ 			std::shared_ptr<ClientDestination> CreateNewLocalDestination (const i2p::data::PrivateKeys& keys, bool isPublic = true, 
+ 				const std::map<std::string, std::string> * params = nullptr);

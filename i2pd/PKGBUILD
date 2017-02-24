@@ -2,7 +2,7 @@
 
 pkgname=i2pd
 _pkgname=i2pd
-pkgver=2.11.0
+pkgver=2.12.0
 pkgrel=1
 pkgdesc="Simplified C++ implementation of I2P client"
 arch=('i686' 'x86_64')
@@ -12,14 +12,20 @@ depends=('boost-libs' 'miniupnpc' 'openssl' 'zlib')
 makedepends=('boost')
 source=(https://github.com/PurpleI2P/${pkgname}/archive/${pkgver}.tar.gz
 	i2pd.service
-	i2pd.tmpfiles.conf)
+	i2pd.tmpfiles.conf
+	SharedNewLD.patch)
 install=i2pd.install
 backup=(etc/i2pd/i2pd.conf
         etc/i2pd/tunnels.conf)
 conflicts=('i2pd-git')
 
+prepare() {
+  cd ${srcdir}/${pkgname}-${pkgver}
+  patch -Np1 < "../SharedNewLD.patch"
+}
+
 build() {
-  cd $srcdir/$pkgname-$pkgver
+  cd ${srcdir}/${pkgname}-${pkgver}
   USE_UPNP=1 make
 }
 
@@ -55,9 +61,7 @@ package(){
   # docs
   _dest="$pkgdir/${_share_dest}/doc/${_pkgname}"
   install -Dm644 $srcdir/$pkgname-$pkgver/README.md "${_dest}/README.md"
-  install -Dm644 $srcdir/$pkgname-$pkgver/docs/configuration.md "${_dest}/configuration.md"
-#  install -Dm644 $srcdir/$pkgname-$pkgver/docs/family.md "${_dest}/family.md"
-  install -Dm644 $srcdir/$pkgname-$pkgver/docs/config_opts_after_2.3.0.md "${_dest}/config_opts_after_2.3.0.md"
+  ###install -Dm644 $srcdir/i2pd/docs/README.md "${_dest}/Docs_location.md"
 
   #man
   install -Dm644 $srcdir/$pkgname-$pkgver/debian/i2pd.1 "$pkgdir/${_share_dest}/man/man1/i2pd.1"
@@ -65,7 +69,8 @@ package(){
   chmod -R o= $pkgdir/${_home_dest}
 }
 
-md5sums=('813b257119c2f856c515ba81858f42a0'
+md5sums=('6891535e7e5f9399d77e8c85de3ce411'
          '6f93e415752a31782a1f9fba7157c790'
-         '3a2525a728d944f0d2aeb978ec12ee13')
+         '3a2525a728d944f0d2aeb978ec12ee13'
+		 'f83b6326412d63489bc833be0dc9273c')
 
