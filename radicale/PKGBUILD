@@ -2,8 +2,8 @@
 
 pkgname=radicale
 _pkgname=Radicale
-pkgver=1.1.1
-pkgrel=7
+pkgver=1.1.4
+pkgrel=1
 pkgdesc='Simple calendar (CalDAV) and contact (CardDAV) server'
 arch=('any')
 url='http://www.radicale.org/'
@@ -45,7 +45,7 @@ package() {
   install -m644 -D 'radicale.service' "${pkgdir}/usr/lib/systemd/system/radicale.service"
 }
 
-sha256sums=('f978e6bdfab329a8d2d643584f02c4d2788a44b360ed4c326dea9e2735df81f6'
+sha256sums=('4d1900d052e58a5b3fc07d138cc99d6f286da6c8baef390b13f605a38921a798'
             'e9089df51c5b77741cb153cd66eb4d78ca25ff4c2bd20d638675846aa0574df3'
             '8de8b5198f7d07d463c351fbe89aed4d0b392f97c52cf8feb04218f90918f7ac'
             'ad74f89a7b0607d0bafb2826114fa39130432a57f18924e70101998c6f351f78')
