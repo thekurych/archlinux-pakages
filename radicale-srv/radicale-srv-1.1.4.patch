@@ -1,0 +1,57 @@
+diff --git a/config b/config
+index 61547cd..7ac5d59 100644
+--- a/config
++++ b/config
+@@ -78,17 +78,17 @@
+ # WARNING: THESE BACKENDS ARE NOT PROVEN TO BE SECURE.
+ #          DON'T USE THEM FOR CRITICAL CONTENT.
+ # -------
+-#type = None
++type = htpasswd
+ 
+ # Custom authentication handler
+ #custom_handler =
+ 
+ # Htpasswd filename
+-#htpasswd_filename = /etc/radicale/users
++htpasswd_filename = /etc/radicale/users
+ 
+ # Htpasswd encryption method
+ # Value: plain | sha1 | ssha | crypt | bcrypt | md5
+-#htpasswd_encryption = crypt
++htpasswd_encryption = crypt
+ 
+ # LDAP server URL, with protocol and port
+ #ldap_url = ldap://localhost:389/
+@@ -144,13 +144,13 @@
+ 
+ # Rights backend
+ # Value: None | authenticated | owner_only | owner_write | from_file | custom
+-#type = None
++type = from_file
+ 
+ # Custom rights handler
+ #custom_handler =
+ 
+ # File for rights management from_file
+-#file = ~/.config/radicale/rights
++file = /etc/radicale/rights
+ 
+ 
+ [storage]
+@@ -161,13 +161,13 @@
+ #          OTHER BACKENDS ARE NOT READY FOR PRODUCTION.
+ # -------
+ # Value: filesystem | multifilesystem | database | custom
+-#type = filesystem
++type = filesystem
+ 
+ # Custom storage handler
+ #custom_handler =
+ 
+ # Folder for storing local collections, created if not present
+-#filesystem_folder = ~/.config/radicale/collections
++filesystem_folder = /srv/radicale/collections
+ 
+ # Database URL for SQLAlchemy
+ # dialect+driver://user:password@host/dbname[?key=value..]
